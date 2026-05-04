@@ -2,114 +2,50 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// Определение узла
-//typedef struct Node {
-//    int value;
-//    struct Node* next;
-//} Node;
-//
-//// Определение самого списка
-//typedef struct LinkedList {
-//    int size;
-//    Node* head;
-//    Node* tail;
-//} LinkedList;
-//
-//// Функция создания пустого списка
-//LinkedList* createList() {
-//    LinkedList* list = (LinkedList*)malloc(sizeof(LinkedList));
-//    list->head = NULL;
-//    list->tail = NULL;
-//    list->size = 0;
-//    return list;
-//}
-//
-//// Добавление в конец
-//void add(LinkedList* list, int value) {
-//    Node* newNode = (Node*)malloc(sizeof(Node));
-//    newNode->value = value;
-//    newNode->next = NULL;
-//
-//    if (list->head == NULL) {
-//        list->head = newNode;
-//        list->tail = newNode;
-//    }
-//    else {
-//        list->tail->next = newNode;
-//        list->tail = newNode;
-//    }
-//    list->size++;
-//}
-//
-//// Функция создания пустого списка
-//LinkedList* createList(int arr[], int size) {
-//    LinkedList* list = (LinkedList*)malloc(sizeof(LinkedList));
-//    list->head = NULL;
-//    list->tail = NULL;
-//    list->size = 0;
-//    
-//    for (int i = 0; i < size; i++) {
-//      		add(list, arr[i]);
-//    }
-//
-//    return list;
-//}
-//
-//// Вывод списка
-//void printList(LinkedList* list) {
-//    Node* cur = list->head;
-//    while (cur != NULL) {
-//        printf("%d -> ", cur->value);
-//        cur = cur->next;
-//    }
-//    printf("NULL\n");
-//}
-//
-//// Очистка памяти (в Си это обязательно делать вручную)
-//void freeList(LinkedList* list) {
-//    Node* cur = list->head;
-//    while (cur != NULL) {
-//        Node* temp = cur;
-//        cur = cur->next;
-//        free(temp); // Освобождаем каждый узел
-//    }
-//    free(list); // Освобождаем саму структуру списка
-//}
-//
-//int main() {
-//    //LinkedList* myList = createList();
-//
-//    //add(myList, 10);
-//    //add(myList, 20);
-//    //add(myList, 30);
-//
-//    int arr[] = {1, 2, 3, 4, 5, 6, 7, 8, 9};
-//
-//    LinkedList* myList  = createList(arr, sizeof(arr) / sizeof(int));
-//
-//    printf("Size of list: %d\n", myList->size);
-//    printList(myList);
-//
-//    freeList(myList); // Удаляем список перед выходом
-//    return 0;
-//}
+
 //Узел
- struct Node {
+
+typedef struct Node {   //  typedef позволяет в Си компиляторах 
+						//  использовать просто псевдоним Node вместо struct Node для улучшения читаемости и чистоты кода; 
 	int value;  // 4
 	struct Node* next; // 8
-};
- struct LinkedList {
+} Node;
+
+typedef struct LinkedList {
 	int size;
 	Node* head;
 	Node* tail;
-};
+} LinkedList;
+
+
+void add(LinkedList* list, int value);
+
+bool isEmpty(LinkedList* list);
+
+LinkedList* createList(int arr[], int size);
+
+int get(LinkedList* list, int i);
+
+void printList(LinkedList* list);
+
+void freeList(LinkedList* list);
+
+
+
+
+bool isEmpty(LinkedList* list) {
+	if (list == NULL || list->size == 0)
+		return true;
+	else
+		return false;
+}
 
 void add(LinkedList* list, int value) {
 	Node* node = (Node*)malloc(sizeof(Node));
 	node->value = value;
 	node->next = NULL;
-	//list->size++;
-	if (list->head == NULL) {
+
+	if (isEmpty(list)) {
 		list->head = node;
 		list->tail = node;
 	}
@@ -122,6 +58,10 @@ void add(LinkedList* list, int value) {
 
 LinkedList* createList(int arr[], int size) {
 	LinkedList* list = (LinkedList*)malloc(sizeof(LinkedList));
+	if (list == NULL) {
+		return NULL;
+	}
+
 	list->head = NULL;
 	list->tail = NULL;
 	list->size = 0;
@@ -132,33 +72,47 @@ LinkedList* createList(int arr[], int size) {
 	return list;
 }
 
-void printList(LinkedList* list) {
-	Node* cur = list->head;
+int get(LinkedList* list, int index) {
+	if (list == NULL) {
+		return NULL;
+	}
 
-	for (int i = 0; i < list->size; i++) {
-		printf("%d ", cur->value );
+	Node* cur = list->head;
+	for (int i = 0; i < index; i++) {
 		cur = cur->next;
 	}
-	printf("\n ");
+
+	return cur->value;
 }
 
-//void printList(LinkedList* list) {
-//    Node* cur = list->head;
-//    while (cur != NULL) {
-//        printf("%d -> ", cur->value);
-//        cur = cur->next;
-//    }
-//    printf("NULL\n");
-//}
+void printList(LinkedList* list) {
+	
+	if (isEmpty(list)) {
+		printf("List is empty\n");
+		return;
+	}
+
+	Node* cur = list->head;
+	for (int i = 0; i < list->size; i++) {
+		printf("%d ", cur->value);
+		cur = cur->next;
+	}
+
+	printf("\n");
+}
 
 void freeList(LinkedList* list) {
-    Node* cur = list->head;
-    while (cur != NULL) {
-        Node* temp = cur;
-        cur = cur->next;
-        free(temp); // Освобождаем каждый узел
-    }
-    free(list); // Освобождаем саму структуру списка
+	if (list != NULL) {
+
+		Node* cur = list->head;
+
+		while (cur != NULL) {
+			Node* next = cur->next;
+			free(cur);
+			cur = next;
+		}
+		free(list);
+	}
 }
 
 int main()
@@ -166,6 +120,9 @@ int main()
 	int arr[] = {1, 2, 3, 4, 5, 6, 7, 8, 9};
 
 	LinkedList* list  = createList(arr, sizeof(arr) / sizeof(int));
+	printf("%d \n", get(list, 5));
+
+	
 	printList(list);
 	freeList(list);
 

@@ -15,13 +15,8 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="LinkedList.cpp">
+    <ClCompile Include="Vector.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="VectorVsLinkedList.md">
-      <Filter>Resource Files</Filter>
-    </None>
   </ItemGroup>
 </Project>

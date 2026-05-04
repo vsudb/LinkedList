@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{83b4f4d2-e633-4376-bcb9-d4e82661c6a2}</ProjectGuid>
-    <RootNamespace>LinkedList</RootNamespace>
+    <ProjectGuid>{f9cf4f74-ac9c-48e3-80a6-75c0500cbd77}</ProjectGuid>
+    <RootNamespace>My5LabClassWork</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -123,13 +123,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="LinkedList.cpp" />
+    <ClCompile Include="5LabClassWork.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="VectorVsLinkedList.md">
-      <SubType>
-      </SubType>
-    </None>
+    <Image Include="..\..\..\..\..\Desktop\ФКН\Язык СИ\5 занятие\ArrayIndexAdress.png" />
+    <Image Include="..\..\..\..\..\Desktop\ФКН\Язык СИ\5 занятие\DoubleLinkedList.png" />
+    <Image Include="..\..\..\..\..\Desktop\ФКН\Язык СИ\5 занятие\LinkedList.png" />
+    <Image Include="..\..\..\..\..\Desktop\ФКН\Язык СИ\5 занятие\QueueLinkedList.png" />
+    <Image Include="..\..\..\..\..\Desktop\ФКН\Язык СИ\5 занятие\QueueOnArray.png" />
+    <Image Include="..\..\..\..\..\Desktop\ФКН\Язык СИ\5 занятие\StackOnArray.png" />
+    <Image Include="..\..\..\..\..\Desktop\ФКН\Язык СИ\5 занятие\StackOnLinkedList.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
