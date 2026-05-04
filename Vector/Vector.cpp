@@ -1,20 +1,165 @@
-// Vector.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
 
-#include <iostream>
+// ================= VECTOR =================
 
-int main()
-{
-    std::cout << "Hello World!\n";
+typedef struct Vector {
+    int* data;
+    int size;
+    int capacity;
+} Vector;
+
+// ================= PROTOTYPES =================
+
+Vector* createVector(int capacity);
+void freeVector(Vector* v);
+
+void pushBack(Vector* v, int value);
+void popBack(Vector* v);
+
+int get(Vector* v, int index);
+bool set(Vector* v, int index, int value);
+
+void insert(Vector* v, int index, int value);
+void erase(Vector* v, int index);
+
+void resize(Vector* v, int newCapacity);
+void printVector(Vector* v);
+
+// ================= IMPLEMENTATION =================
+
+// -------- create --------
+Vector* createVector(int capacity) {
+    Vector* v = (Vector*)malloc(sizeof(Vector));
+    if (!v) return NULL;
+
+    v->data = (int*)malloc(sizeof(int) * capacity);
+    v->size = 0;
+    v->capacity = capacity;
+
+    return v;
 }
 
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
+// -------- free --------
+void freeVector(Vector* v) {
+    if (v) {
+        free(v->data);
+        free(v);
+    }
+}
 
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
+// -------- resize internal --------
+void resize(Vector* v, int newCapacity) {
+    int* newData = (int*)realloc(v->data, sizeof(int) * newCapacity);
+
+    if (!newData) return;
+
+    v->data = newData;
+    v->capacity = newCapacity;
+}
+
+// -------- push back --------
+void pushBack(Vector* v, int value) {
+    if (v->size >= v->capacity) {
+        resize(v, v->capacity * 2);
+    }
+
+    v->data[v->size++] = value;
+}
+
+// -------- pop back --------
+void popBack(Vector* v) {
+    if (v->size > 0) {
+        v->size--;
+    }
+}
+
+// -------- get --------
+int get(Vector* v, int index) {
+    if (!v || index < 0 || index >= v->size)
+        return -1;
+
+    return v->data[index];
+}
+
+// -------- set --------
+bool set(Vector* v, int index, int value) {
+    if (!v || index < 0 || index >= v->size)
+        return false;
+
+    v->data[index] = value;
+    return true;
+}
+
+// -------- insert --------
+void insert(Vector* v, int index, int value) {
+    if (!v || index < 0 || index > v->size)
+        return;
+
+    if (v->size >= v->capacity) {
+        resize(v, v->capacity * 2);
+    }
+
+    for (int i = v->size; i > index; i--) {
+        v->data[i] = v->data[i - 1];
+    }
+
+    v->data[index] = value;
+    v->size++;
+}
+
+// -------- erase --------
+void erase(Vector* v, int index) {
+    if (!v || index < 0 || index >= v->size)
+        return;
+
+    for (int i = index; i < v->size - 1; i++) {
+        v->data[i] = v->data[i + 1];
+    }
+
+    v->size--;
+}
+
+// -------- print --------
+void printVector(Vector* v) {
+    if (!v) return;
+
+    for (int i = 0; i < v->size; i++) {
+        printf("%d ", v->data[i]);
+    }
+    printf("\n");
+}
+
+// ================= MAIN =================
+
+int main() {
+
+    Vector* v = createVector(4);
+
+    pushBack(v, 1);
+    pushBack(v, 2);
+    pushBack(v, 3);
+    pushBack(v, 4);
+    pushBack(v, 5); // triggers resize
+
+    printVector(v);
+
+    insert(v, 2, 99);
+    printVector(v);
+
+    erase(v, 1);
+    printVector(v);
+
+    printf("get(2) = %d\n", get(v, 2));
+
+    set(v, 0, 777);
+    printVector(v);
+
+    popBack(v);
+    printVector(v);
+
+    freeVector(v);
+
+    return 0;
+}
