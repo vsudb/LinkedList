@@ -19,27 +19,4 @@
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
-  <ItemGroup>
-    <Image Include="..\..\..\..\..\Desktop\ФКН\Язык СИ\5 занятие\QueueOnArray.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="..\..\..\..\..\Desktop\ФКН\Язык СИ\5 занятие\StackOnArray.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="..\..\..\..\..\Desktop\ФКН\Язык СИ\5 занятие\StackOnLinkedList.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="..\..\..\..\..\Desktop\ФКН\Язык СИ\5 занятие\ArrayIndexAdress.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="..\..\..\..\..\Desktop\ФКН\Язык СИ\5 занятие\DoubleLinkedList.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="..\..\..\..\..\Desktop\ФКН\Язык СИ\5 занятие\LinkedList.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="..\..\..\..\..\Desktop\ФКН\Язык СИ\5 занятие\QueueLinkedList.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-  </ItemGroup>
 </Project>

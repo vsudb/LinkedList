@@ -125,15 +125,6 @@
   <ItemGroup>
     <ClCompile Include="5LabClassWork.cpp" />
   </ItemGroup>
-  <ItemGroup>
-    <Image Include="..\..\..\..\..\Desktop\ФКН\Язык СИ\5 занятие\ArrayIndexAdress.png" />
-    <Image Include="..\..\..\..\..\Desktop\ФКН\Язык СИ\5 занятие\DoubleLinkedList.png" />
-    <Image Include="..\..\..\..\..\Desktop\ФКН\Язык СИ\5 занятие\LinkedList.png" />
-    <Image Include="..\..\..\..\..\Desktop\ФКН\Язык СИ\5 занятие\QueueLinkedList.png" />
-    <Image Include="..\..\..\..\..\Desktop\ФКН\Язык СИ\5 занятие\QueueOnArray.png" />
-    <Image Include="..\..\..\..\..\Desktop\ФКН\Язык СИ\5 занятие\StackOnArray.png" />
-    <Image Include="..\..\..\..\..\Desktop\ФКН\Язык СИ\5 занятие\StackOnLinkedList.png" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

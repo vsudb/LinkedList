@@ -21,6 +21,17 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LinkedListFull", "LinkedLis
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Vector", "Vector\Vector.vcxproj", "{0054678C-418D-4337-BDC7-94851855DCDB}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Art", "Art", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+	ProjectSection(SolutionItems) = preProject
+		Art\ArrayIndexAdress.png = Art\ArrayIndexAdress.png
+		Art\DoubleLinkedList.png = Art\DoubleLinkedList.png
+		Art\LinkedList.png = Art\LinkedList.png
+		Art\QueueLinkedList.png = Art\QueueLinkedList.png
+		Art\QueueOnArray.png = Art\QueueOnArray.png
+		Art\StackOnArray.png = Art\StackOnArray.png
+		Art\StackOnLinkedList.png = Art\StackOnLinkedList.png
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
