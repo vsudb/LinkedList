@@ -35,14 +35,11 @@ void addFront(LinkedList* list, int value);
 void insertAt(LinkedList* list, int index, int value);
 
 
-
 int get(LinkedList* list, int index);
 
 void printList(LinkedList* list);
 
 void freeList(LinkedList* list);
-
-
 
 
 // ================== БАЗА ==================
@@ -197,7 +194,6 @@ LinkedList* createList() {
 }
 
 
-
 void printList(LinkedList* list) {
 	
 	if (isEmpty(list)) {
@@ -227,8 +223,6 @@ void freeList(LinkedList* list) {
 		free(list);
 	}
 }
-
-
 
 int main()
 {
