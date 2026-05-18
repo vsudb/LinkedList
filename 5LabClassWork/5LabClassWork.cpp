@@ -70,21 +70,7 @@ bool hasCycle(LinkedList* list);
 //🧹 3. Удаление дубликатов  (НЕ отсортированный — O(n²))
 void removeDuplicatesUnsorted(LinkedList* list);
 
-//===================================================
-// На 50  баллов           продвинутый уровень Floyd 
-//===================================================
-//
 
-//🧠 Задача : Найти начало цикла в связном списке
-//             Дан односвязный список.
-//             Некоторые узлы могут образовывать цикл — то есть последний элемент списка может указывать на один из предыдущих.
-//   Ваша задача :
-//              🔍 Определить, есть ли цикл в списке, и если есть — вернуть узел, с которого начинается цикл.
-//                 Если цикла нет — вернуть NULL.
-
-Node* detectCycleStart(LinkedList* list);
-
-//===================================================
 
 bool isEmpty(LinkedList* list) {
     return list == NULL || list->size == 0;
@@ -120,32 +106,54 @@ LinkedList* createList() {
 }
 
 LinkedList* createList(int arr[], int size) {
-    LinkedList* list = createList();
-
-    for (int i = 0; i < size; i++) {
-        add(list, arr[i]);
-    }
-    return list;
+  
+    return NULL;
 }
 
 
 void add(LinkedList* list, int value) { //push_back
-    Node* node = createNode(value);
-
-    if (isEmpty(list)) {
-        list->head = node;
-        list->tail = node;
-
-        //list->head = list->tail = node;
-    }
-    else {
-        list->tail->next = node;
-        list->tail = node;
-
-        //list->tail = list->tail->next = node;
-    }
-    list->size++;
+   
 }
+
+void freeList(LinkedList* list) {
+
+}
+
+LinkedList* insertAt(LinkedList* list, int index, int value) {
+
+    printList(list);
+    printf("insertAt index = [%d] \n", index);
+
+    if (isEmpty(list) || index < 0 || index > list->size) {
+        printf("Index = [%d] Out Of Bound Exception\n", index);
+        return list;
+    }
+
+
+    printList(list);
+
+    return list;
+}
+
+LinkedList* removeAt(LinkedList* list, int index) {
+
+    printList(list);
+    printf("removeAt index = [%d] \n", index);
+
+    if (isEmpty(list) || index < 0 || index >= list->size) {
+        printf("Index [%d] out of bounds\n", index);
+        return list;
+    }
+
+
+    printList(list);
+
+
+    return list;
+
+}
+
+
 
 void printList(LinkedList* list) {
     if (!isEmpty(list)) {
@@ -173,17 +181,6 @@ void printList(LinkedList* list) {
     }
 }
 
-void freeList(LinkedList* list) {
-    Node* cur = list->head;
-
-    while (cur != NULL) {
-        Node* next = cur->next;
-        free(cur);
-        cur = next;
-    }
-
-    free(list);
-}
 
 
 void addFront(LinkedList* list, int value) {
@@ -235,78 +232,6 @@ void removeBack(LinkedList* list) {
 }
 
 
-LinkedList* insertAt(LinkedList* list, int index, int value) {
-    
-    printList(list);
-    printf("insertAt index = [%d] \n", index);
-
-    if (isEmpty(list) || index < 0 || index > list->size) {
-        printf("Index = [%d] Out Of Bound Exception\n", index);
-        return list;
-    }
-    
-    if (index == 0) {
-        addFront(list, value);
-    }
-    else if (index == list->size) {  
-        add(list, value);
-    }
-    else {
-        Node* node = createNode(value);
-        Node* cur = list->head;
-
-        for (int i = 0; i < index - 1; i++) {
-            cur = cur->next;
-        }
-
-        node->next = cur->next;
-        cur->next = node;
-
-        list->size++;
-    }
-
-    printList(list);
-
-    return list;
-}
-
-LinkedList* removeAt(LinkedList* list, int index) {
-    
-    
-    printList(list);
-    printf("removeAt index = [%d] \n", index);
-
-    if (isEmpty(list) || index < 0 || index >= list->size) {
-        printf("Index [%d] out of bounds\n", index);
-        return list;
-    }
-
-    if (index == 0) {
-        removeFront(list);
-    }
-    else if (index == list->size - 1) {
-        removeBack(list);
-    }
-    else {
-
-        Node* cur = list->head;
-        for (int i = 0; i < index - 1; i++) {
-            cur = cur->next;
-        }
-
-        Node* deleted = cur->next;
-        cur->next = deleted->next;
-        free(deleted);
-        
-        list->size--;
-    }
-
-    printList(list);
-
-
-    return list;
-
-}
 
 
 
