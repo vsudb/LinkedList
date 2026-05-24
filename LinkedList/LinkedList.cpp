@@ -56,8 +56,8 @@ bool isEmpty(LinkedList* list);
 
 Node*       createNode(int val);             // инициализация Node
 
-LinkedList* createList();                    // инициализация пустого LinkedList
-LinkedList* createList(int arr[], int size); // создвние списка заполненного данными из массива
+LinkedList* initList();                    // инициализация пустого LinkedList
+LinkedList* createList(int arr[], int size); // создание списка заполненного данными из массива
 
 int get(LinkedList* list, int index);
 int set(LinkedList* list, int index, int value);
@@ -97,7 +97,8 @@ int main()
     //removeAt(list, list->size);
     //removeAt(list, list->size - 1);
     
-    //runTest();
+    runTest();
+
     freeList(list);
 }
 
@@ -123,7 +124,7 @@ Node* createNode(int val) {
     return node;
 }
 
-LinkedList* createList() {
+LinkedList* initList() {
     LinkedList* list = (LinkedList*)malloc(sizeof(LinkedList));
 
     if (!list) {
@@ -139,7 +140,7 @@ LinkedList* createList() {
 }
 
 LinkedList* createList(int arr[], int size) {
-    LinkedList* list = createList();
+    LinkedList* list = initList();
 
     for (int i = 0; i < size; i++) {
         add(list, arr[i]);
@@ -350,4 +351,142 @@ int set(LinkedList* list, int index, int value) {
     cur->value = value;
 
     return cur->value;
+}
+
+//============== TESTS ===============
+
+void testCreateList(int arr[], int size) {
+
+    LinkedList* list = createList(arr, size);
+    assert(list != NULL);
+    assert(list->size == size);
+    assert(list->head != NULL);
+    assert(list->tail != NULL);
+    assert(list->head->value == arr[0]);
+    assert(list->tail->value == arr[size - 1]);
+    assert(list->tail->next == NULL);
+    freeList(list);
+}
+
+void testInsertAt(int arr[], int size, int index, int value) {
+   
+    LinkedList* list = createList(arr, size);
+
+    insertAt(list, index, value);
+
+    assert(list != NULL);
+    assert(list->head != NULL);
+    assert(list->tail != NULL);
+ 
+
+    if (index > 0 && index < size) {
+
+        assert(list->head->value == arr[0]);
+        assert(list->tail->value == arr[size - 1]);
+        assert(list->size == size + 1);
+
+        assert(get(list, 0) == arr[0]);
+        assert(get(list, index - 1) == arr[index - 1]);
+        assert(get(list, index) == value);
+        assert(get(list, index + 1) == arr[index]);
+    }
+    else if (index == 0) {
+
+        assert(list->head->value == value);
+        assert(list->tail->value == arr[size - 1]);
+        assert(list->size == size + 1);
+        
+        assert(get(list, index) == value);
+        assert(get(list, index + 1) == arr[index]);
+
+    }
+    else if (index == size) {
+
+        assert(list->head->value == arr[0]);
+        assert(list->tail->value == value);
+        assert(list->size == size + 1);
+        
+        assert(get(list, 0) == arr[0]);
+        assert(get(list, index - 1) == arr[index - 1]);
+        assert(get(list, index) == value);
+    }
+    else {
+
+        assert(list->head->value == arr[0]);
+        assert(list->tail->value == arr[size - 1]);
+        assert(list->size == size);
+    }
+
+    freeList(list);
+}
+
+
+void testRemoveAt(int arr[], int size, int index) {
+
+    LinkedList* list = createList(arr, size);
+
+    removeAt(list, index);
+
+    assert(list != NULL);
+    assert(list->head != NULL);
+    assert(list->tail != NULL);
+
+
+   if (index == 0) {
+    
+        assert(list->head->value == arr[index + 1]);
+        assert(list->tail->value == arr[size - 1]);
+        assert(list->size == size - 1);
+        assert(get(list, index) == arr[index + 1]);
+        assert(get(list, index + 1) == arr[index + 2]);
+   
+   }else if(index == size - 1) {
+     
+        assert(list->head->value == arr[0]);
+        assert(list->tail->value == arr[index - 1]);
+        assert(list->size == size - 1);
+        assert(get(list, index - 1) == arr[index - 1]);
+   
+   }else if (index > 0 && index < size) {
+
+        assert(list->head->value == arr[0]);
+        assert(list->tail->value == arr[size - 1]);
+        assert(list->size == size - 1);
+
+        assert(get(list, 0) == arr[0]);
+        assert(get(list, index - 1) == arr[index - 1]);
+        assert(get(list, index) == arr[index + 1]);
+       //assert(get(list, index + 1) == arr[index + 2]);
+        assert(get(list, size - 2) == arr[size - 1]);
+
+   }else{
+       assert(list->head->value == arr[0]);
+       assert(list->tail->value == arr[size - 1]);
+       assert(list->size == size);
+   }
+    
+
+    freeList(list);
+}
+
+void runTest() {
+    int arr[] = { 0,1,2,3,4,5,6,7,8,9 };
+
+    int size = sizeof(arr) / sizeof(int);
+
+    testCreateList(arr, size);
+    testInsertAt(arr, size, size/2, 555);   // вставка в середину
+    testInsertAt(arr, size, 0, 555);        // вставка в начало index = 0
+    testInsertAt(arr, size, size - 1, 555); // вставка в конец  index = size - 1
+    testInsertAt(arr, size, size, 555);     // вставка в конец  index = size
+    testInsertAt(arr, size, size + 1, 555); // выход за пределы размера списка
+    testInsertAt(arr, size, -1, 555); 
+
+    testRemoveAt(arr, size, size / 2);  // удаление из середины
+    testRemoveAt(arr, size, 0);         // удаление начального элемента index = 0
+    testRemoveAt(arr, size, size - 1);  // удаление последнего элемента index = size - 1
+    testRemoveAt(arr, size, size);      // удаление за пределами списка index = size
+    testRemoveAt(arr, size, size + 1);  
+    testRemoveAt(arr, size, -1);
+
 }
