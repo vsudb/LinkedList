@@ -1,5 +1,5 @@
 //https://pythontutor.com/visualize.html#mode=display
-//Визуализация работы LinkedList Stack и Heap
+//Визуализация работы LinkedList в Stack и Heap
 #include <stdbool.h>
 #include <stdlib.h>
 #include <stdio.h>
