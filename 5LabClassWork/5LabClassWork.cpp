@@ -1,9 +1,12 @@
+#include <stdio.h>
+#include <stdbool.h>
+#include <stdlib.h>
 #include <iostream>
 
 //Узел
 typedef struct Node {    
     int value;  // 4
-    Node* next; // 8
+    struct Node* next; // 8
 } Node;         
 
 //  typedef позволяет в Си компиляторах
