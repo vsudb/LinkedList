@@ -1,9 +1,12 @@
 #include <iostream>
+#include <stdio.h>
+#include <stdbool.h>
+#include <stdlib.h>
 
 //Узел
 typedef struct Node {    
     int value;  // 4
-    Node* next; // 8
+    struct Node* next; // 8
 } Node;         
 
 //  typedef позволяет в Си компиляторах
@@ -23,7 +26,7 @@ bool isEmpty(LinkedList* list);
 Node* createNode(int val);
 
 //инициализация пустого LinkedList
-LinkedList* createList();
+LinkedList* initList();
 
 //создвние списка заполненного данными из массива
 LinkedList* createList(int arr[], int size);
@@ -90,7 +93,7 @@ Node* createNode(int val) {
     return node;
 }
 
-LinkedList* createList() {
+LinkedList* initList() {
     LinkedList* list = (LinkedList*)malloc(sizeof(LinkedList));
 
     if (!list) {
